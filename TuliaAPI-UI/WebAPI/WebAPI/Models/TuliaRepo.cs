@@ -22,7 +22,7 @@ namespace WebAPI.Models
             var users = _context.Users.ToList();
             List<DBModels.User> userList = new List<DBModels.User>();
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 userList.Add(new DBModels.User(user.Id, user.FirstName, user.LastName, user.Username, user.Role, user.NumberGroups));
             }
@@ -87,8 +87,8 @@ namespace WebAPI.Models
                 .AsQueryable()
                 .Include(g => g.Group).Select(m => new DBModels.MembershipWithGroup(m.Id, m.UserId, m.GroupId, m.Group))
                 .ToListAsync();
-                
-                
+
+
             DBModels.MembershipWithGroup member = returnedMembership.FirstOrDefault(p => p.Id == id);
             if (member != null) return member;
             return new DBModels.MembershipWithGroup();
@@ -100,7 +100,8 @@ namespace WebAPI.Models
             {
                 var duplicateUsername = _context.Users.Single(u => u.Username == user.Username);
                 return null;
-            } catch(System.InvalidOperationException e)
+            }
+            catch (System.InvalidOperationException)
             {
                 _context.Users.Add(new Entities.User
                 {
@@ -182,7 +183,8 @@ namespace WebAPI.Models
             {
                 var duplicateGroupName = _context.Groups.Single(g => g.GroupTitle == group.GroupTitle);
                 return null;
-            } catch(System.InvalidOperationException)
+            }
+            catch (System.InvalidOperationException)
             {
                 _context.Groups.Add(new Entities.Group
                 {
@@ -224,7 +226,7 @@ namespace WebAPI.Models
                 ).ToListAsync();
             DBModels.GroupIncludingPosts singleGroup = returnedGroup.FirstOrDefault(p => p.Id == id);
             return singleGroup;
-            
+
         }
 
         public async Task<DBModels.PostIncludingComments> GetPostIncludingComments(int id)
@@ -252,7 +254,7 @@ namespace WebAPI.Models
             var groups = _context.Groups.ToList();
             List<DBModels.Group> listGroups = new List<DBModels.Group>();
 
-            foreach(var group in groups)
+            foreach (var group in groups)
             {
                 listGroups.Add(new DBModels.Group(group.Id, group.UserId, group.NumberMember, group.GroupTitle, group.Description));
             }
@@ -305,7 +307,7 @@ namespace WebAPI.Models
                 GroupId = membership.GroupId
 
             };
-             
+
             var existingEntity = await GetMemberByGroupId(membership.UserId, membership.GroupId);
             if (existingEntity != null)
             {
@@ -329,8 +331,9 @@ namespace WebAPI.Models
             {
                 DBModels.User loginUser = await GetUserById(foundUser.Id);
                 return loginUser;
-            }else
-            return null;
+            }
+            else
+                return null;
         }
 
         // adds a comment to the database
@@ -354,24 +357,26 @@ namespace WebAPI.Models
             try
             {
                 var foundUser = _context.Users.Single(u => u.Username == user.Username);
-                
+
                 // if user is found, find user's comments
                 try
                 {
                     var comments = _context.Comments.Where(c => c.UserId == foundUser.Id).ToList();
                     List<DBModels.Comment> userComments = new List<DBModels.Comment>();
 
-                    foreach(var comment in comments)
+                    foreach (var comment in comments)
                     {
                         userComments.Add(new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
                     }
 
                     return userComments;
-                } catch (System.InvalidOperationException)
+                }
+                catch (System.InvalidOperationException)
                 {
                     return null;
                 }
-            } catch(System.InvalidOperationException)
+            }
+            catch (System.InvalidOperationException)
             {
                 return null;
             }
@@ -389,10 +394,11 @@ namespace WebAPI.Models
                     GroupId = post.GroupId,
                     Body = post.Body,
                     CreatedTime = DateTime.Now
-                }) ;
+                });
                 _context.SaveChanges();
                 return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
-            } catch(System.InvalidOperationException)
+            }
+            catch (System.InvalidOperationException)
             {
                 return null;
             }
@@ -405,7 +411,7 @@ namespace WebAPI.Models
 
             List<DBModels.Post> fetchedPosts = new List<DBModels.Post>();
 
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 fetchedPosts.Add(new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
             }
@@ -452,7 +458,7 @@ namespace WebAPI.Models
             var comments = _context.Comments.Where(p => p.PostId == postId);
             List<DBModels.Comment> commentList = new List<DBModels.Comment>();
 
-            foreach(var comment in comments)
+            foreach (var comment in comments)
             {
                 commentList.Add(new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
             }
@@ -502,6 +508,6 @@ namespace WebAPI.Models
             return false;
         }
 
-        
+
     }
 }
