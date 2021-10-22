@@ -7,11 +7,18 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '.github/workflows/master_collegesupportedapp.yml'
+      - 'TuliaAPI-UI/Client/**'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+    
+    defaults:
+      run:
+        working-directory: TuliaAPI-UI/Client
 
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: TuliaAPI-UI/Client/dist/Client
 
   deploy:
     runs-on: ubuntu-latest
