@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - collegesupportedgroup
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '.github/workflows/master_collegesupportedgroup-backend.yml'
       - 'TuliaAPI-UI/WebAPI/**'
