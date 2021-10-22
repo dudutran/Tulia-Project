@@ -5,14 +5,15 @@ import { Group } from './models/group';
 import { Membership } from './models/membership';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
 
-  private groupsUrl = 'https://localhost:44326/api/Group';
-  private memberUrl = 'https://localhost:44326/api/Membership';
+  private groupsUrl = `${baseUrl}Group`;
+  private memberUrl = `${baseUrl}Membership`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

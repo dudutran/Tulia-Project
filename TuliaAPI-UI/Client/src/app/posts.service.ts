@@ -7,14 +7,15 @@ import { Post } from './models/post';
 import { Observable } from 'rxjs';
 import { Comment } from './models/comment';
 import { PostDetail } from './models/postdetail';
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private postUrl = "https://localhost:44326/api/Post";
-  private pUrl = "https://localhost:44326";
-  private commentUrl = "https://localhost:44326/api/Comment";
+  private postUrl = `${baseUrl}Post`;
+  private pUrl = `${baseUrl}`;
+  private commentUrl = `${baseUrl}Comment`;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

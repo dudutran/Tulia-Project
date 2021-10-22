@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpEvent, HttpHandler, Htt
 import { catchError, map } from 'rxjs/operators';
 import { Router, Routes } from '@angular/router';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private usersUrl = 'https://localhost:44326/api/User';
+  private usersUrl = `${baseUrl}User`;
 
   constructor(
     private http: HttpClient,
@@ -95,6 +96,6 @@ export class UserService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 }
