@@ -5,18 +5,18 @@ import { first } from 'rxjs/operators';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup= new FormGroup({
+    form: FormGroup = new FormGroup({
 
-    username: new FormControl(''),
-    password: new FormControl(''),
+        username: new FormControl(''),
+        password: new FormControl(''),
 
-  });
+    });
     loading = false;
     submitted = false;
     returnUrl: string | undefined;
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
     }
 
     // convenience getter for easy access to form fields

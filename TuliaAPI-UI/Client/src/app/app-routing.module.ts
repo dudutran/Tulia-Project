@@ -14,9 +14,9 @@ import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { DeletePostComponent } from './delete-post/delete-post.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'manageaccount', component: ManageUsersComponent, canActivate: [RoleGuard] },
   { path: 'userdetail/:id', component: UserDetailComponent, canActivate: [RoleGuard] },
   { path: 'creategroup', component: CreateGroupComponent, canActivate: [RoleGuard] },
