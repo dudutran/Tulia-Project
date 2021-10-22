@@ -1,0 +1,60 @@
+#Backend 
+trigger:
+- master
+
+pr:
+- master
+- Main-Dev
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: #Path to folders
+  sDir: 'WebAPI'
+  solution: 'WebAPI/*.sln'
+
+stages:
+- stage: Install_Build
+  #Runs restores, builds and tests 
+  jobs:
+  #Build and test dotnet code
+    - job: Build_test
+      displayName: Dotnet Build-Test
+      steps:
+      # Force dotnet 5
+      - task: UseDotNet@2
+        displayName: Dotnet SDK 5
+        inputs:
+          packageType: 'sdk'
+          version: '5.x'
+      #Install nuGet
+      - task: NuGetToolInstaller@1
+        inputs:
+          checkLatest: true
+      #Restore Solution
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: $(solution)
+      #Build
+      - task: CmdLine@2
+        displayName: Dotnet Build
+        inputs:
+          script: 'dotnet build --configuration Release'
+          workingDirectory: $(sDir)
+      #Test
+      - task: CmdLine@2
+        displayName: Dotnet Tests
+        inputs:
+          script: 'dotnet test --configuration Release'
+          workingDirectory: $(sDir)
+- stage: Docker
+  jobs:
+  #Build and eventally deploy a docker container
+    - job: Docker_Build
+      displayName: Docker Build
+      steps:
+      #Build
+      - task: Docker@2
+        inputs:
+          command: 'build'
+          Dockerfile: '**/Dockerfile'

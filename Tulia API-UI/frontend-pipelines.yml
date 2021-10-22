@@ -1,0 +1,39 @@
+#DOCKER TO BE ADDED LATER
+#Front End
+trigger:
+- main
+
+pr:
+- main
+- Main-Dev
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: #Path to folders
+  angular: '$(Build.SourcesDirectory)/Client'
+
+stages:
+- stage: Installs
+  #Runs NPM Installs
+  jobs:
+    - job: Node_install
+      displayName: Install node.js
+      steps:
+      - task: NodeTool@0
+        displayName: 'Install Node.js'
+        inputs:
+          versionSpec: '14.x'
+
+- stage: NG
+  #Installs/Builds angular app
+  jobs:
+    - job: NGbuild
+      displayName: NG install/build
+      steps:
+        - script: |
+            npm install -g @angular/cli
+            npm ci
+            ng build --prod
+          displayName: 'npm install and build'
+          workingDirectory: $(angular)

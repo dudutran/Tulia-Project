@@ -1,0 +1,75 @@
+
+  <!-- <mat-toolbar color="primary" class="main-tool-bar">
+    <span class="example-spacer">{{title}}
+       <!--<div *ngIf="!userService.loggedIn()"></div>
+      <a routerLink="/register" mat-raised-button color="primary" *ngIf="!userService.loggedIn()">Register</a>
+      <a routerLink="/login" mat-raised-button color="primary" *ngIf="!userService.loggedIn()">Login</a>
+      <ng-template [ngIf]="user">
+      <a [routerLinkActive]="['active']" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" mat-raised-button color="primary"><span><i class="material-icons">home</i>
+        </span>Home</a>
+      
+      <a routerLink="/creategroup" mat-raised-button color="primary" *ngIf="user.role==='admin'">Create Group</a>
+      <a routerLink="/manageaccount" mat-raised-button color="primary" *ngIf="user.role==='admin'">Manage Users</a>
+      <a [routerLinkActive]="['active']" routerLink="/groups" mat-raised-button color="primary"><span><i class="material-icons">perm_identity</i>
+      </span>Groups</a>
+      <a [routerLinkActive]="['active']" routerLink="/posts" mat-raised-button color="primary"><span><i class="material-icons">article</i>
+      </span>Posts</a>
+      <a (click)="logout()" mat-raised-button color="primary"><span><i class="material-icons">login</i>
+      </span>Logout</a>
+    
+      </ng-template>
+      
+      
+    </span>
+    </mat-toolbar> -->
+    <app-navigationbar></app-navigationbar>
+    <app-header></app-header>
+
+  <router-outlet></router-outlet>
+  
+  <footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--<div class="app-container" [ngClass]="{ 'bg-light': user }">
+    
+    
+</div>-->
+<!--*ngIf="user.role==='admin'";
+<div *ngIf="user">
+      <a mat-button color="warn" *ngIf="user.role==='admin'">{{user.role}}</a>
+    </div>
+-->
