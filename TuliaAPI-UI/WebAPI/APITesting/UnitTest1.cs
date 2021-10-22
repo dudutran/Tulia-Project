@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using WebAPI.Controllers;
 using WebAPI.Models;
-using WebAPI.Models.Entities;
+using WebAPI.Entities;
 using Xunit;
 
 namespace APITesting
@@ -14,13 +14,14 @@ namespace APITesting
         [Fact]
         public void GetUserById()
         {
-            var options = new DbContextOptionsBuilder<tuliadbContext>()
+            var options = new DbContextOptionsBuilder<TuliasupportedappContext>()
                .UseInMemoryDatabase(databaseName: "TuliaDatabase")
                .Options;
 
-            using (var context = new tuliadbContext(options))
+            using (var context = new TuliasupportedappContext(options))
             {
-                context.Users.Add(new WebAPI.Models.Entities.User {
+                context.Users.Add(new WebAPI.Entities.User
+                {
                     Id = 1,
                     Username = "Liam",
                     Password = "Password",
@@ -43,13 +44,13 @@ namespace APITesting
         [Fact]
         public void ReturnNullForInvalidUser()
         {
-            var options = new DbContextOptionsBuilder<tuliadbContext>()
+            var options = new DbContextOptionsBuilder<TuliasupportedappContext>()
                .UseInMemoryDatabase(databaseName: "TuliaDatabase")
                .Options;
 
-            using (var context = new tuliadbContext(options))
+            using (var context = new TuliasupportedappContext(options))
             {
-                context.Users.Add(new WebAPI.Models.Entities.User
+                context.Users.Add(new WebAPI.Entities.User
                 {
                     Id = 2,
                     Username = "Liam",
@@ -73,13 +74,13 @@ namespace APITesting
         [Fact]
         public void DeleteInvalidPost()
         {
-            var options = new DbContextOptionsBuilder<tuliadbContext>()
+            var options = new DbContextOptionsBuilder<TuliasupportedappContext>()
                .UseInMemoryDatabase(databaseName: "TuliaDatabase")
                .Options;
 
-            using (var context = new tuliadbContext(options))
+            using (var context = new TuliasupportedappContext(options))
             {
-                context.Posts.Add(new WebAPI.Models.Entities.Post
+                context.Posts.Add(new WebAPI.Entities.Post
                 {
                     UserId = 1,
                     Title = "title",
@@ -102,13 +103,13 @@ namespace APITesting
         [Fact]
         public void DeleteInvalidComment()
         {
-            var options = new DbContextOptionsBuilder<tuliadbContext>()
+            var options = new DbContextOptionsBuilder<TuliasupportedappContext>()
                .UseInMemoryDatabase(databaseName: "TuliaDatabase")
                .Options;
 
-            using (var context = new tuliadbContext(options))
+            using (var context = new TuliasupportedappContext(options))
             {
-                context.Comments.Add(new WebAPI.Models.Entities.Comment
+                context.Comments.Add(new WebAPI.Entities.Comment
                 {
                     UserId = 1,
                     PostId = 1,
@@ -122,7 +123,7 @@ namespace APITesting
                 CommentController commentController = new CommentController(repo);
                 var result = commentController.DeleteComment(0);
                 var expected = commentController.DeleteComment(1);
-                
+
                 Assert.NotEqual(expected, result);
             }
         }
@@ -130,11 +131,11 @@ namespace APITesting
         [Fact]
         public void CheckUserResult()
         {
-            var options = new DbContextOptionsBuilder<tuliadbContext>()
+            var options = new DbContextOptionsBuilder<TuliasupportedappContext>()
                .UseInMemoryDatabase(databaseName: "TuliaDatabase")
                .Options;
 
-            using (var context = new tuliadbContext(options))
+            using (var context = new TuliasupportedappContext(options))
             {
                 TuliaRepo repo = new TuliaRepo(context);
 
