@@ -34,12 +34,12 @@ namespace WebAPI
             // coors setup
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowNgServe", policy =>
+                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
                 {
-                    policy.WithOrigins("http://localhost:4200",
+                    builder.WithOrigins("http://localhost:4200",
                                         "http://tulia-ui.eastus.cloudapp.azure.com",
                                         "https://collegesupportedapp.azurewebsites.net"
-                    ).WithHeaders("*").AllowAnyMethod().AllowCredentials();
+                    ).AllowAnyHeader().AllowAnyMethod();
                 });
             });
 
