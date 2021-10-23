@@ -34,9 +34,9 @@ namespace WebAPI
             // coors setup
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                options.AddPolicy("AllowNgServe", policy =>
                 {
-                    builder.WithOrigins("http://localhost:4200",
+                    policy.WithOrigins("http://localhost:4200",
                                         "http://tulia-ui.eastus.cloudapp.azure.com",
                                         "https://collegesupportedapp.azurewebsites.net"
                     ).WithHeaders("*").AllowAnyMethod();
