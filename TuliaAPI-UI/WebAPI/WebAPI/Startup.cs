@@ -39,7 +39,7 @@ namespace WebAPI
                     policy.WithOrigins("http://localhost:4200",
                                         "http://tulia-ui.eastus.cloudapp.azure.com",
                                         "https://collegesupportedapp.azurewebsites.net"
-                    ).WithHeaders("*").AllowAnyMethod();
+                    ).WithHeaders("*").AllowAnyMethod().AllowCredentials();
                 });
             });
 
