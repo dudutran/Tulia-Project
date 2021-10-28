@@ -42,6 +42,11 @@ CREATE Table Reports(
     Type VARCHAR(100) not null,
     ReportContent VARCHAR(max) not null
 );
+Create Table Likes(
+    Id int PRIMARY Key IDENTITY(1, 1),
+    SourceUserId int FOREIGN Key REFERENCES Users(Id) on DELETE No ACTION,
+    LikedPostId int FOREIGN Key REFERENCES Posts(Id) on DELETE NO ACTION
+)
 
 SELECT * FROM Users;
 SELECT * FROM Posts;
@@ -49,7 +54,7 @@ SELECT * FROM Comments;
 SELECT * FROM Groups; 
 SELECT * FROM Membership;
 SELECT * FROM Reports;
+SELECT * FROM Likes;
 
-Alter TABLE Posts
-Add GroupId int FOREIGN KEY REFERENCES Groups(Id) on DELETE No ACTION not null;
+
 

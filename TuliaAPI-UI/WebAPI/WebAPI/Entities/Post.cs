@@ -10,6 +10,7 @@ namespace WebAPI.Entities
         public Post()
         {
             Comments = new HashSet<Comment>();
+            Likes = new HashSet<Like>();
             Reports = new HashSet<Report>();
         }
 
@@ -23,6 +24,7 @@ namespace WebAPI.Entities
         public virtual Group Group { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 import { Comment } from "./comment";
+import { Like } from "./like";
+
 export interface PostDetail {
     id: number,
     userId: number,
@@ -6,5 +8,6 @@ export interface PostDetail {
     body: string,
     groupId: number,
     comments: Comment[],
+    likes: Like[]
 
 }

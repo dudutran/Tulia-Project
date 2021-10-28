@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Post } from './models/post';
 import { Observable } from 'rxjs';
 import { Comment } from './models/comment';
+import { Like } from './models/like';
 import { PostDetail } from './models/postdetail';
 import { baseUrl } from 'src/environments/environment';
 
@@ -49,6 +50,10 @@ export class PostsService {
       (catchError(this.handleError1));
   }
 
+  addLike(like: Like): Observable<Like> {
+    return this.http.post<Like>(`${this.postUrl}/like`, like, this.httpOptions).pipe
+      (catchError(this.handleError1));
+  }
 
   handleError1(error: HttpErrorResponse) {
     return throwError(error.error);

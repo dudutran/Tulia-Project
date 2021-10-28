@@ -7,6 +7,17 @@ namespace WebAPI.Models.DBModels
 {
     public class PostIncludingComments
     {
+        public PostIncludingComments(int Id, int UserId, string Title, string Body, DateTime CreatedTime, List<Comment> Comments, List<Like> Likes)
+        {
+            this.Id = Id;
+            this.UserId = UserId;
+            this.Title = Title;
+            this.Body = Body;
+            this.CreatedTime = CreatedTime;
+            this.Comments = Comments;
+            this.Likes = Likes;
+
+        }
         public PostIncludingComments(int Id, int UserId, string Title, string Body, DateTime CreatedTime, List<Comment> Comments)
         {
             this.Id = Id;
@@ -24,6 +35,7 @@ namespace WebAPI.Models.DBModels
         public DateTime CreatedTime { get; set; }
 
         public List<Comment> Comments { get; set; }
-        
+        public List<Like> Likes { get; set; }
+
     }
 }

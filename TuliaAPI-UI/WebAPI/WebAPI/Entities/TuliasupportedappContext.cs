@@ -19,6 +19,7 @@ namespace WebAPI.Entities
 
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Membership> Memberships { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
@@ -64,6 +65,19 @@ namespace WebAPI.Entities
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__Groups__UserId__1F98B2C1");
+            });
+
+            modelBuilder.Entity<Like>(entity =>
+            {
+                entity.HasOne(d => d.LikedPost)
+                    .WithMany(p => p.Likes)
+                    .HasForeignKey(d => d.LikedPostId)
+                    .HasConstraintName("FK__Likes__LikedPost__44CA3770");
+
+                entity.HasOne(d => d.SourceUser)
+                    .WithMany(p => p.Likes)
+                    .HasForeignKey(d => d.SourceUserId)
+                    .HasConstraintName("FK__Likes__SourceUse__43D61337");
             });
 
             modelBuilder.Entity<Membership>(entity =>

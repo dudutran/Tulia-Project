@@ -44,6 +44,8 @@
                 <p>{{post.body}}</p>
                 <div *ngFor="let comment of post.comments">{{comment.content}}<br> {{comment.time}}</div>
                 
+                <div *ngIf="post.likes">{{post.likes.length}}</div>
+                
                     <form [formGroup]="form" (ngSubmit)="AddComment()" style="text-align: center;">
                         <mat-form-field class="reply-box" appearance="fill">
                             <mat-label>Leave a comment</mat-label>

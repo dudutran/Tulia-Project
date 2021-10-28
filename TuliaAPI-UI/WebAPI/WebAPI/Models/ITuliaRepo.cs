@@ -26,7 +26,7 @@ namespace WebAPI.Models
         public Task<MembershipWithGroup> GetMemberByGroupId(int userid, int groupid);
 
         public Task<MembershipWithGroup> GetMembershipWithGroup(int id);
-        
+
         public Group CreateGroup(Group group);
 
         public List<Group> GetAllGroups();
@@ -50,6 +50,8 @@ namespace WebAPI.Models
         public List<Comment> ListCommentsFromUser(User user);
 
         public Post CreatePost(Post post);
+
+        public Task<Like> AddLike(Like like);
 
         public List<Post> GetAllPosts();
 

@@ -24,12 +24,28 @@ namespace WebAPI.Controllers
         {
             var result = _repo.CreatePost(post);
 
-            if(result != null)
+            if (result != null)
             {
                 return result;
-            } else
+            }
+            else
             {
                 return StatusCode(403);
+            }
+        }
+
+        //Add new like
+        [HttpPost("like")]
+        public async Task<ActionResult<Like>> AddLike(Like like)
+        {
+            try
+            {
+                var result = await _repo.AddLike(like);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -57,10 +73,11 @@ namespace WebAPI.Controllers
         public ActionResult<Post> DeletePost(int postId)
         {
             var result = _repo.DeletePost(postId);
-            if(result != null)
+            if (result != null)
             {
                 return Ok(result);
-            } else
+            }
+            else
             {
                 return StatusCode(404, "Post could not be found.");
             }

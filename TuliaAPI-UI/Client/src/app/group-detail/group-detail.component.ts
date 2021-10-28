@@ -46,6 +46,8 @@ export class GroupDetailComponent implements OnInit {
     body: new FormControl('')
 
   })
+
+  //comment form
   form: FormGroup = new FormGroup({
 
     userId: new FormControl(''),
@@ -53,6 +55,13 @@ export class GroupDetailComponent implements OnInit {
     content: new FormControl('')
 
   });
+
+  //like form
+  likeForm: FormGroup = new FormGroup({
+    sourceUserId: new FormControl(''),
+    likedPostId: new FormControl('')
+  });
+
   constructor(
     private postService: PostsService,
     private groupService: GroupService,
@@ -80,6 +89,10 @@ export class GroupDetailComponent implements OnInit {
       groupId: [this.groupid],
       title: ['', Validators.required],
       body: ['', Validators.required]
+    });
+    this.likeForm = this.formBuilder.group({
+      sourceUserId: [this.user.id],
+      likedPostId: ['', Validators.required]
     });
   }
 
@@ -143,7 +156,7 @@ export class GroupDetailComponent implements OnInit {
       )
   }
 
-
+  //leave group
   onSubmit() {
     this.submitted = true;
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -182,6 +195,17 @@ export class GroupDetailComponent implements OnInit {
         }
       )
   }
-
+  AddLike() {
+    this.postService.addLike(this.likeForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log("liked");
+        },
+        error => {
+          alert(error);
+        }
+      )
+  }
 
 }

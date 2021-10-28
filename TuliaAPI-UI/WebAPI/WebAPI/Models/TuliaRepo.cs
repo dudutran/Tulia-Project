@@ -221,7 +221,9 @@ namespace WebAPI.Models
                     Description = g.Description,
                     UserId = g.UserId,
                     NumberMember = g.NumberMember,
-                    Posts = g.Posts.Select(p => new DBModels.PostIncludingComments(p.Id, p.UserId, p.Title, p.Body, p.CreatedTime, p.Comments.Select(c => new DBModels.Comment(c.UserId, c.PostId, c.Content, c.Time)).ToList())).ToList()
+                    Posts = g.Posts.Select(p => new DBModels.PostIncludingComments(p.Id, p.UserId, p.Title, p.Body, p.CreatedTime,
+                        p.Comments.Select(c => new DBModels.Comment(c.UserId, c.PostId, c.Content, c.Time)).ToList(),
+                        p.Likes.Select(l => new DBModels.Like((int)l.LikedPostId, (int)l.SourceUserId)).ToList())).ToList()
                 }
                 ).ToListAsync();
             DBModels.GroupIncludingPosts singleGroup = returnedGroup.FirstOrDefault(p => p.Id == id);
@@ -476,6 +478,38 @@ namespace WebAPI.Models
             catch (System.InvalidOperationException)
             {
                 return null;
+            }
+        }
+
+        //get likes by userid and postId
+        public async Task<DBModels.Like> GetLike(int userId, int postId)
+        {
+            var foundLike = await _context.Likes.FirstOrDefaultAsync(u => u.SourceUserId == userId && u.LikedPostId == postId);
+            if (foundLike != null)
+            {
+                return new DBModels.Like((int)foundLike.SourceUserId, (int)foundLike.LikedPostId);
+            }
+            return null;
+        }
+
+        //create Likes
+        public async Task<DBModels.Like> AddLike(DBModels.Like like)
+        {
+            var newEntity = new Entities.Like
+            {
+                SourceUserId = like.SourceUserId,
+                LikedPostId = like.LikedPostId
+            };
+            var existingEntity = await GetLike(like.SourceUserId, like.LikedPostId);
+            if (existingEntity != null)
+            {
+                throw new Exception(message: "You liked this post.");
+            }
+            else
+            {
+                await _context.Likes.AddAsync(newEntity);
+                await _context.SaveChangesAsync();
+                return like;
             }
         }
 
